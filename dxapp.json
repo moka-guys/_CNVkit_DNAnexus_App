@@ -20,9 +20,9 @@
     ],
     "outputSpec": [
       {
-        "name": "_normal_targetcoverage_cnn",
-        "label": "cnn file",
-        "class": "file",
+        "name": "coverage",
+        "label": "cnn files",
+        "class": "array:file",
         "help": "cnn_file_for_normal_sample",
         "optional": true
       },

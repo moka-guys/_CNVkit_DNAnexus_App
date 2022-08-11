@@ -28,30 +28,32 @@ docker load -i '/home/dnanexus/cnvkit_docker.tgz'
 
 if [[ $type_of_analysis=="create_coverage_for_PoN" ]]; then
     mkdir /home/dnanexus/out
-    mkdir /home/dnanexus/out/coverage_normals
-    chmod 777 /home/dnanexus/out/coverage_normals
+    mkdir /home/dnanexus/out/coverage
+    mkdir /home/dnanexus/out/coverage/Data
+    mkdir /home/dnanexus/out/coverage/Data/coverage_normals
+    chmod 777 /home/dnanexus/out/coverage/Data/coverage_normals
     mkdir /home/dnanexus/Data
     mkdir /home/dnanexus/Data/Controls_spleen
     mkdir /home/dnanexus/Data/target_bed
     cd /home/dnanexus/Data/Controls_spleen
     pwd
     dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gk8802g8xJP9694PZ2K6V
-    # dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gk8j02g8QYGGz1763K5k9
-    # dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gk9Q02g8fP0g7Bzkp5zp1
-    # dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkG802g8bBqgjF2JJq8xp
-    # dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkP002g8Z65JvFBQGb89z
-    # dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkQj02g8X1G0yBxY4Y46Y
-    # dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkX802g8Q12jXBz85Qv9P
-    # dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkY002g8bBqgjF2JJq8y4
+    dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gk8j02g8QYGGz1763K5k9
+    dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gk9Q02g8fP0g7Bzkp5zp1
+    dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkG802g8bBqgjF2JJq8xp
+    dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkP002g8Z65JvFBQGb89z
+    dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkQj02g8X1G0yBxY4Y46Y
+    dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkX802g8Q12jXBz85Qv9P
+    dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkY002g8bBqgjF2JJq8y4
 
     dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gk8802g8Xv36gByXFVyq8
-    # dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gk8j02g8vFj7qF5X3B0Q3
-    # dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkB802g8bBqgjF2JJq8xj
-    # dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkGj02g8qVZbk8x9ykBPq
-    # dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkP002g8bJ28ZGfQP0g09
-    # dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkV002g8b5Q1qF7bqpbvB
-    # dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkXj02g8b2800G05Y0Z9P
-    # dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkY802g8zxf4yF621xG6x
+    dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gk8j02g8vFj7qF5X3B0Q3
+    dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkB802g8bBqgjF2JJq8xj
+    dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkGj02g8qVZbk8x9ykBPq
+    dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkP002g8bJ28ZGfQP0g09
+    dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkV002g8b5Q1qF7bqpbvB
+    dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkXj02g8b2800G05Y0Z9P
+    dx download project-GFZQYVQ064pQvpBq4v34698Q:file-G74gkY802g8zxf4yF621xG6x
     cd ..
     cd /home/dnanexus/Data/target_bed
     pwd
@@ -64,7 +66,7 @@ if [[ $type_of_analysis=="create_coverage_for_PoN" ]]; then
     for entry in /home/dnanexus/Data/Controls_spleen/*.bam
     do
     new_entry="${entry/"home/dnanexus/Data"/"Data"}"
-    new_entry2="${new_entry/"/Data/Controls_spleen"/"/output/coverage_normals"}"
+    new_entry2="${new_entry/"/Data/Controls_spleen"/"/output/coverage/Data/coverage_normals"}"
 
     docker run --rm \
         -v /home/dnanexus/Data:/Data \
