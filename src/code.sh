@@ -25,14 +25,16 @@ dx download $docker_file --auth "${DNAnexus_auth_token}"
 docker load -i '/home/dnanexus/cnvkit_docker.tgz'
 #mark-section "Run the python script"
 # docker run - mount the home directory as a share
+mkdir /home/dnanexus/out
+mkdir /home/dnanexus/Data
 
-if [[ $type_of_analysis=="create_coverage_for_PoN" ]]; then
-    mkdir /home/dnanexus/out
+if [[ $type_of_analysis == "create_coverage_for_PoN" ]]; then
+    
     mkdir /home/dnanexus/out/coverage
     mkdir /home/dnanexus/out/coverage/Data
     mkdir /home/dnanexus/out/coverage/Data/coverage_normals
     chmod 777 /home/dnanexus/out/coverage/Data/coverage_normals
-    mkdir /home/dnanexus/Data
+    
     mkdir /home/dnanexus/Data/Controls_spleen
     mkdir /home/dnanexus/Data/target_bed
     cd /home/dnanexus/Data/Controls_spleen
@@ -77,21 +79,32 @@ if [[ $type_of_analysis=="create_coverage_for_PoN" ]]; then
         /Data/target_bed/selected_genes_for_TSO500_CNV_project.bed \
         -o "${new_entry2/".bam"/"_normal.targetcoverage.cnn"}" 
     done
-    dx-upload-all-outputs --parallel
+    
 
-elif [[ $type_of_analysis=="create_PoN" ]]; then
+elif [[ $type_of_analysis == "create_PoN" ]]; then
     echo "Generating Panel of Normals cnn file"
-    docker run --rm -ti -v \
-    /Data/:/Data \
+    cd /home/dnanexus/Data
+    dx download "project-GFZQYVQ064pQvpBq4v34698Q:/Data/coverage_normals/" -r
+    dx download "project-GFZQYVQ064pQvpBq4v34698Q:/Data/Reference_Genome/" -r
+    cd ..
+    chmod 777 /home/dnanexus/Data/Reference_Genome/
+    mkdir /home/dnanexus/out/panel_of_normal
+    mkdir /home/dnanexus/out/panel_of_normal/Data
+    mkdir /home/dnanexus/out/panel_of_normal/Data/PoN
+    chmod 777 /home/dnanexus/out/panel_of_normal/Data/PoN
+
+    docker run --rm \
+    -v /home/dnanexus/out:/output \
+    -v /home/dnanexus/Data/:/Data \
     etal/cnvkit:latest \
     cnvkit.py reference \
     /Data/coverage_normals/ \
-    --fasta /Data/Reference_Genome/hg19.fa \
-    --output /Generating_PoN_test/normal/cnvkit_0.9.9_PoN.cnn
+    --fasta /Data/Reference_Genome/TSO500_hg19_genome.fa \
+    --output /output/panel_of_normal/Data/PoN/cnvkit_0.9.9_PoN.cnn
 
 else
     echo "carry_out_Analysis"
     
 fi
-
+dx-upload-all-outputs --parallel
 

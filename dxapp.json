@@ -1,59 +1,57 @@
 {
-    "name": "CNVkit_version_0.9.9",
-    "summary": "App to Run CNVkit commands",
-    "properties": {
-      "github release": "v0.9.9"
-    },
-    "dxapi": "1.0.0",
-    "inputSpec": [
-        {
-            "name": "type_of_analysis",
-            "label": "Type of Analysis",
-            "help": "Type of CNVkit Analysis",
-            "class": "string",
-            "choices": [
-                "create_coverage_for_PoN",
-                "create_PoN",
-                "carry_out_Analysis"
-            ]
-        }
-    ],
-    "outputSpec": [
-      {
-        "name": "coverage",
-        "label": "cnn files",
-        "class": "array:file",
-        "help": "cnn_file_for_normal_sample",
-        "optional": true
-      },
-      {
-        "name": "PoN_cnn",
-        "label": "PoN cnn file",
-        "class": "file",
-        "help": "combined cnn file for all normal samples",
-        "optional": true
-      }
-    ],
-    "runSpec": {
-      "execDepends": [
-      ],
-      "assetDepends": [
-      ],
-      "systemRequirements": {
-        "*": {
-          "instanceType": "mem1_ssd1_x2"
-        }
-      },
-      "file": "src/code.sh",
-      "release": "20.04",
-      "version": "0",
-      "interpreter": "bash",
-      "distribution": "Ubuntu"
-    },
-    "access": {
-      "allProjects": "VIEW",
-      "network": [
-        "*"
+  "name": "CNVkit_version_0.9.9",
+  "summary": "App to Run CNVkit commands",
+  "properties": {
+    "github release": "v0.9.9"
+  },
+  "dxapi": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "type_of_analysis",
+      "label": "Type of Analysis",
+      "help": "Type of CNVkit Analysis",
+      "class": "string",
+      "choices": [
+        "create_coverage_for_PoN",
+        "create_PoN",
+        "carry_out_Analysis"
       ]
     }
+  ],
+  "outputSpec": [
+    {
+      "name": "coverage",
+      "label": "cnn files",
+      "class": "array:file",
+      "help": "cnn_file_for_normal_sample",
+      "optional": true
+    },
+    {
+      "name": "panel_of_normal",
+      "label": "PoN cnn file",
+      "class": "array:file",
+      "help": "combined cnn file for all normal samples",
+      "optional": true
+    }
+  ],
+  "runSpec": {
+    "execDepends": [],
+    "assetDepends": [],
+    "systemRequirements": {
+      "*": {
+        "instanceType": "mem1_ssd1_x2"
+      }
+    },
+    "file": "src/code.sh",
+    "release": "20.04",
+    "version": "0",
+    "interpreter": "bash",
+    "distribution": "Ubuntu"
+  },
+  "access": {
+    "allProjects": "VIEW",
+    "network": [
+      "*"
+    ]
   }
+}
